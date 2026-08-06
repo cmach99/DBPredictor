@@ -8,7 +8,7 @@ A local FastAPI-based REST API for diabetes classification using a trained machi
 
 ```
 .
-├── diabetes_unclean.csv          # Your raw dataset (not included)
+├── diabetes_unclean.csv          # Your raw dataset
 ├── train_and_save.py             # Training script — cleans data, trains model, saves artifacts
 ├── api.py                        # FastAPI server — loads artifacts and serves predictions
 ├── test_api.py                   # Simple Python client to test the API
