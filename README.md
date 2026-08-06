@@ -26,12 +26,12 @@ A local FastAPI-based REST API for diabetes classification using a trained machi
 ### 1. Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Or manually:
 ```bash
-pip install fastapi uvicorn numpy pandas scikit-learn joblib
+pip3 install fastapi uvicorn numpy pandas scikit-learn joblib
 ```
 
 ### 2. Train and Save the Model
@@ -39,7 +39,7 @@ pip install fastapi uvicorn numpy pandas scikit-learn joblib
 Place your `diabetes_unclean.csv` in the project root, then run:
 
 ```bash
-python train_and_save.py
+python3 train_and_save.py
 ```
 
 This will:
@@ -52,7 +52,7 @@ This will:
 ### 3. Start the API Server
 
 ```bash
-python api.py
+python3 api.py
 ```
 
 The server starts at: **`http://localhost:8000`**
@@ -61,29 +61,13 @@ The server starts at: **`http://localhost:8000`**
 
 **Option A — Using the test script:**
 ```bash
-python test_api.py
+python3 test_api.py
 ```
 
-**Option B — Using `curl`:**
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"features": [45.0, 4.7, 75.0, 6.5, 4.2, 1.8, 1.2, 2.5, 0.8, 28.5, 1.0]}'
-```
-
-**Option C — Interactive Swagger UI:**
+**Option B — Interactive Swagger UI:**
 Open your browser and go to: **`http://localhost:8000/docs`**
 
 ---
-
-## 🔌 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/` | API info and available endpoints |
-| `GET` | `/health` | Health check — confirms model is loaded |
-| `GET` | `/feature-info` | Returns expected feature names and order |
-| `POST` | `/predict` | Submit features, get prediction + probabilities |
 
 ### POST `/predict` — Request Body
 
@@ -106,7 +90,6 @@ Open your browser and go to: **`http://localhost:8000/docs`**
   "feature_names": ["AGE", "Urea", "Cr", "HbA1c", "Chol", "TG", "HDL", "LDL", "VLDL", "BMI", "Gender"]
 }
 ```
-
 ---
 
 ## 🛠️ How It Works
@@ -141,7 +124,7 @@ Open your browser and go to: **`http://localhost:8000/docs`**
 If you update your dataset or want to try a different model:
 
 1. Replace or update `diabetes_unclean.csv`
-2. Run `python train_and_save.py` again
+2. Run `python3 train_and_save.py` again
 3. Restart the API server (it loads artifacts on startup)
 
 No code changes needed in `api.py` — it dynamically reads whatever `feature_columns.pkl` contains.
@@ -154,7 +137,7 @@ No code changes needed in `api.py` — it dynamically reads whatever `feature_co
 |---------|----------|
 | `FileNotFoundError: diabetes_unclean.csv` | Ensure your CSV is in the same folder as `train_and_save.py` |
 | `Expected N features, got M` | Check `/feature-info` and send values in the correct order |
-| `ModuleNotFoundError` | Run `pip install -r requirements.txt` |
+| `ModuleNotFoundError` | Run `pip3 install -r requirements.txt` |
 | Port 8000 already in use | Change the port in `api.py`: `uvicorn.run(app, host="0.0.0.0", port=8001)` |
 | Model accuracy seems low | Tune `RandomForestClassifier` hyperparameters in `train_and_save.py` |
 
